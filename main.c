@@ -20,6 +20,7 @@ int main(int argc, char *argv[]){
     }
     
     feature1(fin,fout);
+    feature2(fin,fout);
 
     fclose(fin);
     fflush(fout);
