@@ -6,10 +6,13 @@
 void feature1(FILE *fin, FILE *fout);
 void feature2(FILE *fin, FILE *fout);
 void feature3(FILE *fin, FILE *fout);
-
+void feature4(FILE *fin, int **parr, int *length, char **op);
 
 void feature6(FILE *fin, struct Obj_t *pobj);
 void feature7(FILE *fout, struct Obj_t *pobj);
+
+char *create_array(int);
+void destroy_arrays(char *);
 
 void feature1(FILE *fin, FILE *fout){
     char buffer[MAX];
@@ -84,6 +87,50 @@ void feature3(FILE *fin, FILE *fout){
     // --------------------
 }
 
+void feature4(FILE *fin, int **parr, int *length, char **op){
+    int data = MAX;
+    int count = 0;
+    int i=0;
+    char *buffer = create_array(data);
+    while ((data = fgetc(fin))!= EOF)
+    {
+        if (data==10)
+        {
+            count++;
+        }
+        if (count >=1)
+        {
+            break;
+        }
+        buffer[i] = data;
+        i++;
+    }
+    int size_op = MAX;
+    char *opp = create_array(size_op);
+    for (int j = 0; j < size_op; j++)
+    {
+        opp[j] = 0;
+    }
+    char aux;
+    int k = 0;
+    for (int j = 0; j > 0; j--) // USAR TABLA ASCII para ver los rangos de letras 
+    {
+        if (buffer[j] == 32) // 
+        {
+            break;
+        }
+        if (buffer[j]>31 && buffer[j]< 255 && buffer[j]!= 127)
+        {
+            aux = buffer[j];
+            opp[k] = aux;
+            buffer[j] = 0;
+            k++;
+        } 
+    }
+    
+}
+
+
 void feature6(FILE *fin, struct Obj_t *pobj){
     char buffer[MAX];
     char *status = NULL;
@@ -117,3 +164,12 @@ void feature7(FILE *fout, struct Obj_t *pobj){
     fprintf(fout,"%s",pobj->nombre);
 }
 
+// Correcion Problemas Segmentation con uso de memoria dinamica
+char *create_array(int s){
+    return (char*)malloc(sizeof(int)*s);
+}
+
+// Feature 10 --- Limpiar ---
+void destroy_arrays(char *this){
+    free(this);
+}
