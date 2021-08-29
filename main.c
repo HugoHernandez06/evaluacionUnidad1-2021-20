@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
     feature1(fin,fout);
     feature2(fin,fout);
     feature3(fin,fout);
-
+    
 
     feature6(fin, &pobj);
     feature7(fout, &pobj);
