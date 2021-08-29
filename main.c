@@ -30,6 +30,7 @@ int main(int argc, char *argv[]){
 
 
     feature6(fin, &pobj);
+    feature7(fout, &pobj);
 
     fclose(fin);
     fflush(fout);

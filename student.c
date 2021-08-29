@@ -9,7 +9,7 @@ void feature3(FILE *fin, FILE *fout);
 
 
 void feature6(FILE *fin, struct Obj_t *pobj);
-
+void feature7(FILE *fout, struct Obj_t *pobj);
 
 void feature1(FILE *fin, FILE *fout){
     char buffer[MAX];         
@@ -58,20 +58,21 @@ void feature3(FILE *fin, FILE *fout){
     printf("Suma Vector: %d\n", totalSum);
     fputs("\n",fout);
     fprintf(fout,"%d\n",totalSum);
+    // ------------ 
     char thrash[MAX];
     fgets(thrash, MAX, fin);
     strtok(thrash, "\n");
-}
-
-
-void feature6(FILE *fin, struct Obj_t *pobj){
+    // ------------
     // Esto se elimina cuando se solucionen los errores de F4-F5
     char bufferP4[MAX];
     fgets(bufferP4, MAX, fin);
     strtok(bufferP4, "\n");
 	printf("Feature4: %s\n", bufferP4);
+    fputs(bufferP4,fout);
     // --------------------
-    
+}
+
+void feature6(FILE *fin, struct Obj_t *pobj){
     char buffer[MAX];
     fgets(buffer, MAX, fin);
     strtok(buffer, "\n");
@@ -89,4 +90,11 @@ void feature6(FILE *fin, struct Obj_t *pobj){
     printf("Nombre: %s\n",pobj->nombre);
     printf("Cedula: %d\n",pobj->cedula);
 
+}
+
+void feature7(FILE *fout, struct Obj_t *pobj){
+    fprintf(fout,"\n");
+    fprintf(fout,"%d",pobj->cedula);
+    fprintf(fout,",");
+    fprintf(fout,"%s",pobj->nombre);
 }
