@@ -1,18 +1,23 @@
 #include <stdlib.h>
 #include "student.h"
 #include <string.h>
+#include <stdint.h> 
 #define MAX 1000
 
 void feature1(FILE *fin, FILE *fout);
 void feature2(FILE *fin, FILE *fout);
 void feature3(FILE *fin, FILE *fout);
+/*
 void feature4(FILE *fin, int **parr, int *length, char **op);
-
+void feature5(FILE *fout, int *parr, int length, char *op);
+*/
 void feature6(FILE *fin, struct Obj_t *pobj);
 void feature7(FILE *fout, struct Obj_t *pobj);
 
 char *create_array(int);
+int *create_arrayInt(int size);
 void destroy_arrays(char *);
+void destroy_arraysInt(int *this);
 
 void feature1(FILE *fin, FILE *fout){
     char buffer[MAX];
@@ -77,7 +82,6 @@ void feature3(FILE *fin, FILE *fout){
     char thrash[MAX];
     fgets(thrash, MAX, fin);
     strtok(thrash, "\n");
-    // ------------
     // Esto se elimina cuando se solucionen los errores de F4-F5
     char bufferP4[MAX];
     fgets(bufferP4, MAX, fin);
@@ -86,11 +90,11 @@ void feature3(FILE *fin, FILE *fout){
     fputs(bufferP4,fout);
     // --------------------
 }
-
+/*
 void feature4(FILE *fin, int **parr, int *length, char **op){
-    int data = MAX;
-    int count = 0;
-    int i=0;
+    int data = 300;
+    uint8_t count = 0;
+    uint8_t i=0;
     char *buffer = create_array(data);
     while ((data = fgetc(fin))!= EOF)
     {
@@ -105,15 +109,15 @@ void feature4(FILE *fin, int **parr, int *length, char **op){
         buffer[i] = data;
         i++;
     }
-    int size_op = MAX;
+    uint8_t size_op = 10;
     char *opp = create_array(size_op);
-    for (int j = 0; j < size_op; j++)
+    for (uint8_t j = 0; j < size_op; j++)
     {
         opp[j] = 0;
     }
     char aux;
     int k = 0;
-    for (int j = 0; j > 0; j--) // USAR TABLA ASCII para ver los rangos de letras 
+    for (uint8_t j = i; j > 0; j--) // USAR TABLA ASCII para ver los rangos de letras 
     {
         if (buffer[j] == 32) // 
         {
@@ -127,11 +131,103 @@ void feature4(FILE *fin, int **parr, int *length, char **op){
             k++;
         } 
     }
+    char *tmp = create_array(k);
+    for (uint8_t j = 0; i < k; j++)
+    {
+        tmp[j] = 0;
+    }
+    uint8_t aux1 = k -1;
+    for (uint8_t j = 0; j < k; j++)
+    {
+        tmp[aux1] = opp[j];
+        aux1--;
+    }
+    int *arr = create_arrayInt(data);
+    char *token = strtok(buffer," ");
+    if (token==NULL)
+    {
+        EXIT_FAILURE;
+    }
+    arr[0] = atoi(token);
+    uint8_t n = 0;
+    while (token != NULL)
+    {
+        if (token != NULL)
+        {
+            arr[n] = atoi(token);
+        }else{
+            break;
+        }
+        token = strtok(NULL," ");
+        n++;
+    }
+    uint8_t count1 = 0;
+    for (uint8_t j = 0; j < data -1; j++)
+    {
+        if (arr[j]==0)
+        {
+            break;
+        }
+        count1++;
+    }
+    int *tmp1 = create_arrayInt(count1);
+    for (uint8_t j = 0; j < count1; j++)
+    {
+        tmp1[j] = (int)arr[j];
+    }
     
+    *length = count1;
+    *op = tmp;
+    *parr = tmp1;
+    destroy_arrays(buffer);
 }
 
+void feature5(FILE *fout, int *parr, int length, char *op)
+{
+    int sumop = 0;
+    for (uint8_t i = 0; i < 3; i++)
+    {
+        sumop += op[i];
+    }
+    if (sumop == 318)
+    { //AVG
+        int suma = 0;
+        for (uint8_t i = 0; i < length; i++)
+        {
+            suma += parr[i];
+        }
+        int avg = suma / length;
+        printf("H");
+        fprintf(fout, "\n");
+        fprintf(fout, "%d", avg);
+    }
+    if (sumop == 326)
+    { //MAX
+        int max = 0;
+        for (uint8_t i = 0; i < length; i++)
+        {
+            if (parr[i] > max)
+                max = parr[i];
+        }
+        fprintf(fout, "\n");
+        fprintf(fout, "%d", max);
+    }
+    if (sumop == 324)
+    { //MIN
+        int min = MAX;
+        for (uint8_t i = 0; i < length; i++)
+        {
+            if (parr[i] < min)
+                min = parr[i];
+        }
+        fprintf(fout, "\n");
+        fprintf(fout, "%d", min);
+    }
+}
+*/
 
 void feature6(FILE *fin, struct Obj_t *pobj){
+    
     char buffer[MAX];
     char *status = NULL;
     status = fgets(buffer, MAX, fin);
@@ -154,7 +250,6 @@ void feature6(FILE *fin, struct Obj_t *pobj){
     }else{
         printf("Error en la linea del archivo");
     }
-
 }
 
 void feature7(FILE *fout, struct Obj_t *pobj){
@@ -165,11 +260,18 @@ void feature7(FILE *fout, struct Obj_t *pobj){
 }
 
 // Correcion Problemas Segmentation con uso de memoria dinamica
-char *create_array(int s){
-    return (char*)malloc(sizeof(int)*s);
+char *create_array(int size){
+    return (char*)malloc(sizeof(int)*size);
 }
 
+int *create_arrayInt(int size){
+    return (int*)malloc(sizeof(int)*size);
+}
 // Feature 10 --- Limpiar ---
 void destroy_arrays(char *this){
+    free(this);
+}
+
+void destroy_arraysInt(int *this){
     free(this);
 }
