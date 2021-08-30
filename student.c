@@ -259,6 +259,27 @@ void feature7(FILE *fout, struct Obj_t *pobj){
     fprintf(fout,"%s",pobj->nombre);
 }
 
+void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){
+    char buffer[MAX];
+    char *status = NULL;
+    int c=0;
+    status = fgets(buffer, MAX, fin);
+    if (status!=NULL)
+    {
+        for (int i = 0; i < MAX; i++)
+        {
+            buffer[i]-=48;
+            if (buffer[i] > 0 && buffer[i]<10)
+            {
+                c = buffer[i];
+            }
+        }
+        *length = c;
+    }else{
+        printf("Error en la linea del archivo");
+    }
+}
+
 // Correcion Problemas Segmentation con uso de memoria dinamica
 char *create_array(int size){
     return (char*)malloc(sizeof(int)*size);

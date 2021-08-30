@@ -8,6 +8,7 @@ int main(int argc, char *argv[]){
     int *parr = NULL;
     char *op = NULL;
     */
+    int length = 0;
 
     if(argc !=3){
         printf("Numero incorrecto de archivos\n");
@@ -36,6 +37,8 @@ int main(int argc, char *argv[]){
     feature6(fin, &pobj);
     feature7(fout, &pobj);
 
+    struct _courseInfo_t *pobj1;
+    feature8(fin, &pobj1,&length);
 
 
     fclose(fin);
