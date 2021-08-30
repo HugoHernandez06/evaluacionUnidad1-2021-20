@@ -275,6 +275,25 @@ void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){
             }
         }
         *length = c;
+        char *token;
+        struct _courseInfo_t arrayObj[c];
+        struct _courseInfo_t Obj;
+        arrayObj[0] = Obj;
+        for (int i = 0; i < c; i++)
+        {
+            char user[32];
+            printf("ingresa el curso %d: curso,créditos,nota\n",i+1);
+            scanf("%s", user);
+            char *tokenCrd = strtok(user,",");
+            strcpy(Obj.name,tokenCrd);
+            char *tokenCrs = strtok(NULL,",");
+            Obj.credits = atoi(tokenCrd);
+            char *tokenGrd = strtok(NULL,",");
+            Obj.grade = atof(tokenGrd);
+            arrayObj[i] = Obj;
+        }
+        *pobj = arrayObj;
+        printf("Primer Registro de la Struct: %s, %d, %f\n",arrayObj[0].name,arrayObj[0].credits,arrayObj[0].grade);
     }else{
         printf("Error en la linea del archivo");
     }
