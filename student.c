@@ -13,6 +13,7 @@ void feature5(FILE *fout, int *parr, int length, char *op);
 */
 void feature6(FILE *fin, struct Obj_t *pobj);
 void feature7(FILE *fout, struct Obj_t *pobj);
+void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length);
 
 char *create_array(int);
 int *create_arrayInt(int size);
@@ -293,7 +294,8 @@ void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){
             arrayObj[i] = Obj;
         }
         *pobj = arrayObj;
-        printf("Primer Registro de la Struct: %s, %d, %f\n",arrayObj[0].name,arrayObj[0].credits,arrayObj[0].grade);
+        printf("Primer Registro de struct: %s, %d, %f\n",arrayObj[0].name,arrayObj[0].credits,arrayObj[0].grade);
+
     }else{
         printf("Error en la linea del archivo");
     }
