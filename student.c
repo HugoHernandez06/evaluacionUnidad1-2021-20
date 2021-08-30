@@ -14,6 +14,8 @@ void feature5(FILE *fout, int *parr, int length, char *op);
 void feature6(FILE *fin, struct Obj_t *pobj);
 void feature7(FILE *fout, struct Obj_t *pobj);
 void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length);
+void feature9(FILE *fout, struct _courseInfo_t *pobj,int length);
+
 
 char *create_array(int);
 int *create_arrayInt(int size);
@@ -282,15 +284,15 @@ void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){
         arrayObj[0] = Obj;
         for (int i = 0; i < c; i++)
         {
-            char user[32];
+            char user[MAX];
             printf("ingresa el curso %d: curso,créditos,nota\n",i+1);
             scanf("%s", user);
-            char *tokenCrd = strtok(user,",");
-            strcpy(Obj.name,tokenCrd);
-            char *tokenCrs = strtok(NULL,",");
-            Obj.credits = atoi(tokenCrd);
-            char *tokenGrd = strtok(NULL,",");
-            Obj.grade = atof(tokenGrd);
+            char *token_cs = strtok(user,",");
+            strcpy(Obj.name,token_cs);
+            char *token_crds = strtok(NULL,",");
+            Obj.credits = atoi(token_crds);
+            char *token_grd = strtok(NULL,",");
+            Obj.grade = atof(token_grd);
             arrayObj[i] = Obj;
         }
         *pobj = arrayObj;
@@ -301,6 +303,37 @@ void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length){
     }
 }
 
+void feature9(FILE *fout, struct _courseInfo_t *pobj,int length){
+    float ponderado = 0;
+    int total_crds = 0;
+    for(int i=0;i<length;i++){
+        float nota = pobj[i].grade;
+        int creditos = pobj[i].credits;
+        ponderado = ponderado + (nota*creditos);
+        total_crds = total_crds + creditos;
+    }
+    float prom = ponderado/total_crds;
+    char user[MAX];  
+    printf("deseas almacenar la información (s) o (n):\n"); //leo linea
+    scanf("%s", user);
+    //printf("linea: %s",linea);
+    if(user[0] == 115 || user[0] == 83){
+        for(uint8_t i=0;i<length;i++){
+            fprintf(fout, "\n");
+            fprintf(fout, "%s",pobj[i].name);
+            fprintf(fout, ", ");
+            fprintf(fout, "%d",pobj[i].credits);
+            fprintf(fout, ", ");
+            fprintf(fout, "%f",pobj[i].grade);
+        }
+        fprintf(fout,"\n");
+        fprintf(fout,"promedio ponderado: %f", prom);
+    }
+    else{
+        fprintf(fout,"\n");
+        fprintf(fout,"%f",prom);
+    }
+}
 // Correcion Problemas Segmentation con uso de memoria dinamica
 char *create_array(int size){
     return (char*)malloc(sizeof(int)*size);

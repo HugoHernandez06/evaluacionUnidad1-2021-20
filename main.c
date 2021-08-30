@@ -39,6 +39,7 @@ int main(int argc, char *argv[]){
 
     struct _courseInfo_t *pobj1;
     feature8(fin, &pobj1,&length);
+    feature9(fout, pobj1,length);
 
 
     fclose(fin);
