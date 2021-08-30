@@ -3,11 +3,6 @@
 #include "student.h"
 
 int main(int argc, char *argv[]){
-    /*
-    int length = 0;
-    int *parr = NULL;
-    char *op = NULL;
-    */
     int length = 0;
 
     if(argc !=3){
@@ -28,11 +23,7 @@ int main(int argc, char *argv[]){
     
     feature1(fin,fout);
     feature2(fin,fout);
-    feature3(fin,fout);
-    /*
-    feature4(fin,&parr,&length,&op);
-    feature5(fout, parr, length, op);
-    */    
+    feature3(fin,fout);  
     struct Obj_t pobj;
     feature6(fin, &pobj);
     feature7(fout, &pobj);
