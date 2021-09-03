@@ -81,7 +81,134 @@ void feature3(FILE *fin, FILE *fout){
         printf("Error en la linea del Archivo");
     }
 }
+void feature4(FILE *fin, int **parr, int *length, char **op)
+{
+    int sizeA = 200;
+    char *buffer = create_array(sizeA);
+    uint8_t status = 0;
+    uint8_t aux = 0;
+    uint8_t i = 0;
+    while ((status = fgetc(fin)) != EOF)
+    {
+        if (status == 10)
+            aux++;
+        if (aux >= 1)
+            break;
+        buffer[i] = status;
+        i++;
+    }
+    uint8_t sizeOp = 8;
+    char *opp = create_array(sizeOp);
+    for (uint8_t j = 0; j < sizeOp; j++)
+        opp[j] = 0;
+    char aux1;
+    uint8_t k = 0;
+    for (uint8_t j = i; j > 0; j--)
+    {
+        if (buffer[j] == 32)
+            break;
+        if (buffer[j] > 31 && buffer[j] < 255 && buffer[j] != 127)
+        {
+            aux1 = buffer[j];
+            opp[k] = aux1;
+            buffer[j] = 0;
+            k++;
+        }
+    }
+    char *tmp = create_array(k);
+    for (uint8_t j = 0; j < k; j++)
+        tmp[j] = 0;
+    uint8_t inv = k - 1;
+    for (uint8_t j = 0; j < k; j++)
+    {
+        tmp[inv] = opp[j]; 
+        inv--;
+    }
+    int *arr = create_arrayInt(sizeA);
+    char *token;
+    token = strtok(buffer, " ");
+    if (token == NULL)
+        EXIT_FAILURE;
+    arr[0] = atoi(token);
+    uint8_t n = 0;
+    while (token != NULL)
+    {
+        if (token != NULL)
+        {
+            arr[n] = atoi(token);
+        }
+        else
+            break;
+        token = strtok(NULL, " ");
+        n++;
+    }
+    uint8_t count = 0;
+    for (uint8_t j = 0; j < sizeA - 1; j++)
+    { 
+        if (arr[j] == 0)
+            break;
+        count++;
+    }
+    int *tmp1 = create_arrayInt(count); 
+    for (uint8_t j = 0; j < count; j++)
+    {
+        tmp1[j] = (int)arr[j];
+    }
 
+    *length = count;
+    *op = tmp;
+    *parr = tmp1;
+    destroy_arrays(buffer);
+}
+
+void feature5(FILE *fout, int *parr, int length, char *op){
+    int opAux = 0;
+    for (uint8_t i = 0; i < 3; i++)
+    {
+        opAux += op[i];
+    }
+    if (opAux == 318) // Promedio AVG
+    {
+        int sum = 0;
+        int avg = 0;
+        for (uint8_t i = 0; i < length; i++)
+        {
+            sum += parr[i];
+        }
+        avg = sum / length;
+        printf("El promedio es: %d\n",avg);
+        fprintf(fout,"\n");
+        fprintf(fout,"%d",avg);
+    }
+    if (opAux == 326) // Numero mas grande MAX
+    {
+        int max = 0;
+        for (uint8_t i = 0; i < length; i++)
+        {
+            if (parr[i] > max)
+            {
+                max = parr[i];
+            }
+        }
+        printf("El mayor numero es: %d\n",max);
+        fprintf(fout,"\n");
+        fprintf(fout,"%d",max);
+    }
+    if (opAux == 324) // Numero mas pequenio MIN
+    {
+        int min = 1000;
+        for (uint8_t i = 0; i < length; i++)
+        {
+            if (parr[i] < min)
+            {
+                min = parr[i];
+            }
+        }
+        printf("El menor numero es: %d\n",min);
+        fprintf(fout,"\n");
+        fprintf(fout,"%d",min);
+    }
+}
 void feature6(FILE *fin, struct Obj_t *pobj){
     
     char buffer[MAX];
