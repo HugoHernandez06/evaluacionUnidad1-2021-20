@@ -7,6 +7,8 @@
 void feature1(FILE *fin, FILE *fout);
 void feature2(FILE *fin, FILE *fout);
 void feature3(FILE *fin, FILE *fout);
+void feature4(FILE *fin, int **parr, int *length, char **op);
+void feature5(FILE *fout, int *parr, int length, char *op);
 void feature6(FILE *fin, struct Obj_t *pobj);
 void feature7(FILE *fout, struct Obj_t *pobj);
 void feature8(FILE *fin, struct _courseInfo_t **pobj,int *length);
@@ -57,37 +59,27 @@ void feature2(FILE *fin, FILE *fout){
 }
 
 void feature3(FILE *fin, FILE *fout){
-    char *nums = 0;
+    fputs("\n", fout);
     int totalSum = 0;
-    fscanf(fin, "%m[^\n]",&nums);
-    strtok(nums, "\n");
-    printf("Valores de Arreglo %s\n", nums);
+    char buffer[100];
+    char *status = NULL;
     char tmp[] = " ";
-    char *token = strtok(nums, tmp);
-    totalSum += atoi(token);
-    while (token != NULL)
+    status = fgets(buffer, sizeof(buffer), fin);
+    if (status!= NULL)
     {
-        printf("Token: %s\n", token);
-        token = strtok(NULL, tmp);
-        if (token !=NULL)
+        char *token = NULL;
+        token = strtok(buffer,tmp);
+        while (token != NULL)
         {
-            totalSum=atoi(token)+totalSum;
-        }      
+            totalSum += atoi(token);
+            token = strtok(NULL,tmp);
+            printf("Token: %s\n",token);
+        }
+        printf("Suma Total: %d\n", totalSum);
+        fprintf(fout,"%d", totalSum);
+    }else{
+        printf("Error en la linea del Archivo");
     }
-    //printf("Suma Vector: %d\n", totalSum);
-    fputs("\n",fout);
-    fprintf(fout,"%d\n",totalSum);
-    // ------------ 
-    char thrash[MAX];
-    fgets(thrash, MAX, fin);
-    strtok(thrash, "\n");
-    // Esto se elimina cuando se solucionen los errores de F4-F5
-    char bufferP4[MAX];
-    fgets(bufferP4, MAX, fin);
-    strtok(bufferP4, "\n");
-	//printf("Feature4: %s\n", bufferP4);
-    fputs(bufferP4,fout);
-    // --------------------
 }
 
 void feature6(FILE *fin, struct Obj_t *pobj){
