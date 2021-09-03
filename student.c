@@ -75,7 +75,7 @@ void feature3(FILE *fin, FILE *fout){
             token = strtok(NULL,tmp);
             printf("Token: %s\n",token);
         }
-        printf("Suma Total: %d\n", totalSum);
+        //printf("Suma Total: %d\n", totalSum);
         fprintf(fout,"%d", totalSum);
     }else{
         printf("Error en la linea del Archivo");
@@ -176,7 +176,7 @@ void feature5(FILE *fout, int *parr, int length, char *op){
             sum += parr[i];
         }
         avg = sum / length;
-        printf("El promedio es: %d\n",avg);
+        //printf("El promedio es: %d\n",avg);
         fprintf(fout,"\n");
         fprintf(fout,"%d",avg);
     }
@@ -190,7 +190,7 @@ void feature5(FILE *fout, int *parr, int length, char *op){
                 max = parr[i];
             }
         }
-        printf("El mayor numero es: %d\n",max);
+        //printf("El mayor numero es: %d\n",max);
         fprintf(fout,"\n");
         fprintf(fout,"%d",max);
     }
@@ -204,7 +204,7 @@ void feature5(FILE *fout, int *parr, int length, char *op){
                 min = parr[i];
             }
         }
-        printf("El menor numero es: %d\n",min);
+        //printf("El menor numero es: %d\n",min);
         fprintf(fout,"\n");
         fprintf(fout,"%d",min);
     }
@@ -217,7 +217,7 @@ void feature6(FILE *fin, struct Obj_t *pobj){
     if (status!=NULL)
     {
         strtok(buffer, "\n");
-	    printf("Nombre y Cedula: %s\n", buffer);
+	    //printf("Nombre y Cedula: %s\n", buffer);
         char *token;
         token = strtok(buffer,",");
         char *nombre = token;
